@@ -6,9 +6,7 @@ import { AppComponent } from './app.component';
 
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { SearchMenuComponent } from './search-menu/search-menu.component';
-import { CartdetailsComponent } from './cartdetails/cartdetails.component';
-import { CartComponent } from './cart/cart.component';
+
 import { HomeComponent } from './home/home.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -25,11 +23,11 @@ import { GroceryItemsSidebarComponent } from './grocery/grocery-items-sidebar/gr
   declarations: [
     AppComponent,
     HomeComponent,
-    CartComponent,
+   
     FooterComponent,
     NavbarComponent,
-    SearchMenuComponent,
-    CartdetailsComponent,
+    
+
     ProductListComponent,
     ProductCardComponent,
     HomeContentComponent,

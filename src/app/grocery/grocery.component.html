@@ -1,14 +1,45 @@
-<div class="row m-0" style="box-shadow: 1px 1px 1px 1px #ffffff;">
-    <div class="col-md-3" *ngFor="let product of products">
-        <!-- <app-grocery-items-sidebar></app-grocery-items-sidebar> -->
-        <ul>
-            <li>{{product.mainCategoryName}}</li>
-        </ul>
-       
+<div class="row m-3">
+        <div class="col-md-3" style="background-color: #ffffff;">
+                <div class="sidebar">
 
-        <ul *ngFor="let name of products.CategoryName">
-            <li>{{name.CategoryName}}</li>
-        </ul>
-    </div>
-    
+                </div>
+        </div>
+        <div class="col-md-9">
+
+                <section class="section-products">
+                        <div class="container">
+
+                                <div class="row">
+                                        <!-- Single Product -->
+                                        <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let product of products">
+                                                <div id="product-1" class="single-product">
+                                                        <div class="part-1">
+                                                                <img [src]="product.productImage" class="img-fluid"
+                                                                        style="max-width: 100%;height: 100%;" alt="">
+                                                                <ul>
+                                                                        <li><a href="#"><i class="bi bi-cart-plus-fill"></i></a>
+                                                                        </li>
+                                                                        <li><a href="#"><i class="bi bi-heart-fill"></i></a>
+                                                                        </li>
+                                                                        <li><a href="#"><i class="bi bi-plus"></i></a>
+                                                                        </li>
+
+                                                                        <li><a href="#"><i class="bi bi-arrows-angle-expand"></i></a>
+                                                                        </li>
+                                                                </ul>
+                                                        </div>
+                                                        <div class="part-2">
+                                                                <h3 class="product-title">{{product.productName}}</h3>
+                                                                <h4 class="product-old-price">$79.99</h4>
+                                                                <h4 class="product-price">&#8377;
+                                                                        {{product.productPrice}}</h4>
+                                                        </div>
+                                                </div>
+                                        </div>
+
+                                </div>
+                        </div>
+                </section>
+
+        </div>
 </div>
