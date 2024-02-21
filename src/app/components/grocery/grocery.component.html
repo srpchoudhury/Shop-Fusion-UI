@@ -1,0 +1,73 @@
+<div class="row m-3">
+        <div class="col-md-3" style="background-color: #ffffff;">
+                <div class="sidebar">
+                  <ng-container *ngIf="itemCategories">
+                    <ng-container *ngFor="let mainCategory of itemCategories[0]?.mainCategories">
+                      <li [attr.id]="mainCategory.mainCategoryId">
+                        <!-- <span (click)="toggleMainCategory(mainCategory)"> -->
+                          <!-- <i class="bi" [ngClass]="{'bi-plus': !mainCategory.expanded, 'bi-dash': mainCategory.expanded}"></i> -->
+                          {{ mainCategory.mainCategoryName }}
+                        <!-- </span> -->
+                      </li>
+                      <ul>
+                       <!-- *ngIf="mainCategory.expanded" -->
+                       
+                        <ng-container *ngFor="let category of mainCategory.categories">
+                          <li [attr.id]="category.categoryId">
+                            <span (click)="toggleCategory(category)">
+                              <i class="bi" [ngClass]="{'bi-plus': !category.expanded, 'bi-dash': category.expanded}"></i>
+                              {{ category.categoryName }}
+                            </span>
+                          </li>
+                          <ul *ngIf="category.expanded">
+                                <li [attr.id]="category.categoryId" (click)="showCategoryBasedProduct($event)">All</li>
+                            <ng-container *ngFor="let subCategory of category.subCategories">
+                              <li [attr.id]="subCategory.subCategoryId" (click)="showSubCategoryBasedProduct($event)">{{ subCategory.subCategoryName }}</li>
+                            </ng-container>
+                          </ul>
+                        </ng-container>
+                      </ul>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+              
+    <div class="col-md-9">
+
+            <section class="section-products">
+                    <div class="container">
+
+                            <div class="row">
+                                    <!-- Single Product -->
+                                    <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let product of products">
+                                            <div id="product-1" class="single-product">
+                                                    <div class="part-1">
+                                                            <img [src]="product.productImage" class="img-fluid"
+                                                                    style="max-width: 100%;height: 100%;" alt="">
+                                                            <ul>
+                                                                    <li><a href="#" (click)="iconClickAddToCart()"><i class="bi bi-cart-plus-fill"></i></a>
+                                                                    </li>
+                                                                    <li><a href="#"><i class="bi bi-heart-fill"></i></a>
+                                                                    </li>
+                                                                    <li><a href="#"><i class="bi bi-plus"></i></a>
+                                                                    </li>
+
+                                                                    <li><a href="#"><i class="bi bi-arrows-angle-expand"></i></a>
+                                                                    </li>
+                                                            </ul>
+                                                    </div>
+                                                    <div class="part-2">
+                                                            <h3 class="product-title">{{product.productName}}</h3>
+                                                            <h4 class="product-old-price">$79.99</h4>
+                                                            <h4 class="product-price">&#8377;
+                                                                    {{product.productPrice}}</h4>
+                                                    </div>
+                                            </div>
+                                    </div>
+
+                            </div>
+                    </div>
+            </section>
+
+    </div>
+</div>

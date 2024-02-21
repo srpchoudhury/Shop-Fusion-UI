@@ -1,0 +1,139 @@
+<nav class="navbar navbar-expand-lg pb-0" style="background-color: #ffffff;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">SHOP FUSION</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="d-flex justify-content-center flex-grow-1" role="search">
+        <input class="form-control me-2 w-75 p-2 mt-1" type="search" placeholder="Search items" aria-label="Search">
+
+      </form>
+      <button (click)="logout()">logout</button>
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="bi bi-cart-fill"></i></a> <!-- Cart Icon -->
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="bi bi-heart-fill"></i></a> <!-- Love Icon -->
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#ModalFormLogin" href="#"><i
+              class="bi bi-person-fill"></i></a> <!-- User Icon -->
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="modal fade" id="ModalFormLogin" tabindex="-1" aria-labelledby="ModalFormLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="myform" style="background-color: #ffffff ;">
+          <h1 class="text-center">Login Form</h1>
+          <form [formGroup]="loginForm">
+            <div class="mb-3 mt-4"
+              [class.error]="loginForm.controls['username'].dirty && loginForm.hasError('required','username')">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input formControlName="username" type="email" class="form-control" id="exampleInputEmail1"
+                aria-describedby="emailHelp">
+            </div>
+            <small *ngIf="loginForm.controls['username'].dirty && loginForm.hasError('required','username')"
+              class="text-danger">*Email is required</small>
+            <div class="mb-3"
+              [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required','password')">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <div class="input-field d-flex">
+                <input formControlName="password" [type]="type" class="form-control" id="exampleInputPassword1">
+                <span (click)="hideShowPassword()" class="bi {{eyeIcon}}"></span>
+              </div>
+            </div>
+            <small *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required','password')"
+              class="text-danger">*Password is required</small>
+            <button (click)="onLoginSubmit()" type="submit" class="btn btn-dark mt-3">LOGIN</button>
+            <p>Not a member? <a data-bs-toggle="modal" data-bs-target="#ModalFormSignup" href="#">Signup now</a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ModalFormSignup" tabindex="-1" aria-labelledby="ModalFormLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="myform" style="background-color: #ffffff ;">
+          <h1 class="text-center">SignUp Form</h1>
+          <form [formGroup]="signupForm">
+            <div class="mb-3 mt-4"
+              [class.error]="signupForm.controls['email'].dirty && signupForm.hasError('required','email')">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1"
+                aria-describedby="emailHelp">
+            </div>
+            <small *ngIf="signupForm.controls['email'].dirty && signupForm.hasError('required','email')"
+              class="text-danger">*Email is required</small>
+
+            <div class="mb-3 mt-4"
+              [class.error]="signupForm.controls['name'].dirty && signupForm.hasError('required','name')">
+              <label for="exampleInputname" class="form-label">Name</label>
+              <input formControlName="name" type="text" class="form-control" id="exampleInputName"
+                aria-describedby="nameHelp">
+            </div>
+            <small *ngIf="signupForm.controls['name'].dirty && signupForm.hasError('required','name')"
+              class="text-danger">*Name is required</small>
+
+            <div class="mb-3 mt-4"
+              [class.error]="signupForm.controls['phoneno'].dirty && signupForm.hasError('required','phoneno')">
+              <label for="exampleInputphoneno" class="form-label">Phone No</label>
+              <input formControlName="phoneno" type="tel" class="form-control" id="exampleInputphoneno"
+                aria-describedby="phonenoHelp">
+            </div>
+            <small *ngIf="signupForm.controls['phoneno'].dirty && signupForm.hasError('required','phoneno')"
+              class="text-danger">*Phone no is required</small>
+
+              <div class="mb-3"
+              [class.error]="signupForm.controls['password'].dirty && signupForm.hasError('required','password')">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <div class="input-field d-flex">
+                <input formControlName="password" [type]="type" class="form-control" id="exampleInputPassword1">
+                <span (click)="hideShowPassword()" class="bi {{eyeIcon}}"></span>
+              </div>
+            </div>
+            <small *ngIf="signupForm.controls['password'].dirty && signupForm.hasError('required','password')"
+              class="text-danger">*Password is required</small>
+
+            <button (click)="onSignupSubmit()"  type="submit" class="btn btn-dark mt-3">SIGN UP</button>
+            <p>Already have account? <a data-bs-toggle="modal" data-bs-target="#ModalFormLogin" href="#">Login now</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

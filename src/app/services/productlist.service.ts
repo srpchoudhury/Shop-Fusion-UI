@@ -6,27 +6,28 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductlistService {
-  private apiUrl = 'https://localhost:7000/api/product';
+  private baseUrl = 'https://localhost:7000/api/product/';
   constructor(private http: HttpClient) { }
 
  
   getProducts(): Observable<any> {
-    return this.http.get(this.apiUrl);
+    return this.http.get(this.baseUrl);
   }
   getItemCategoryDetails(): Observable<any> {
-    return this.http.get("https://localhost:7000/api/product/itemCategoryDetails");
+    return this.http.get(`${this.baseUrl}itemCategoryDetails`);
   }
   getMainCategory():Observable<any>{
-    return this.http.get('https://localhost:7000/api/product/maincategory');
+    return this.http.get(`${this.baseUrl}maincategory`);
   }
   getBrands():Observable<any>{
-    return this.http.get('https://localhost:7000/api/product/brands');
+    return this.http.get(`${this.baseUrl}brands`);
   }
   getCategories():Observable<any>{
-    return this.http.get('https://localhost:7000/api/product/categories');
+    return this.http.get(`${this.baseUrl}categories`);
   }
   getSubCategories():Observable<any>{
-    return this.http.get('https://localhost:7000/api/product/subcategories');
+    return this.http.get(`${this.baseUrl}subcategories`);
   }
+  
   
 }

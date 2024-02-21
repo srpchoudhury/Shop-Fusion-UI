@@ -146,3 +146,10 @@ a:hover {
     background-color: #444444;
     transform: translateY(-50%);
 }
+.sidebar li{
+    list-style: none;
+    
+}
+.sidebar{
+    padding: 20px;
+}
