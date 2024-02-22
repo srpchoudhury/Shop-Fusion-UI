@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 //import { NgToastService } from 'ng-angular-popup';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -15,10 +16,11 @@ export class NavbarComponent implements OnInit {
   eyeIcon: string ="bi-eye-slash-fill";
   loginForm!:FormGroup;
   signupForm!:FormGroup;
-
+  isLoggedIn: boolean = this.auth.isLoggedIn();
   constructor(
      private fb:FormBuilder,
      private auth: AuthService,
+     private router: Router
    //  private toast: NgToastService
   ) { }
 
@@ -30,11 +32,12 @@ export class NavbarComponent implements OnInit {
     this.signupForm=this.fb.group({
       email:['',Validators.required],
       name:['',Validators.required],
-      phoneno:['',Validators.required],
-      password:['',Validators.required]
+      phoneNumber:['',Validators.required],
+      password:['',Validators.required],
+      role:['USER']
     });
   }
-
+  
   //password close 
   hideShowPassword(){
     this.isText = !this.isText;
@@ -45,11 +48,13 @@ export class NavbarComponent implements OnInit {
   onLoginSubmit(){
     if(this.loginForm.valid){
       console.log(this.loginForm.value)
-      this.auth.onLoginSubmit(this.loginForm.value)
-      .subscribe({
+      this.auth.onLoginSubmit(this.loginForm.value).subscribe({
         next:(res)=>{
+          // this.isLoggedIn = true;
           this.loginForm.reset();
           this.auth.storeToken(res.result.token);
+          this.router.navigate(['home']);
+          window.location.reload();
           //this.toast.success({detail:"SUCCESS", summary:res.message, duration: 5000});
           alert(res.message);
         },error:(err)=>{
@@ -62,11 +67,22 @@ export class NavbarComponent implements OnInit {
       this.validateAllFormFields(this.loginForm);
     }
   }
-
   //form signup
   onSignupSubmit(){
     if(this.signupForm.valid){
-      console.log(this.signupForm.value)
+      console.log(this.signupForm.value);
+        this.auth.onSignupSubmit(this.signupForm.value).subscribe({
+          next:(res) => {
+            this.signupForm.reset();
+            this.router.navigate(['home']);
+            window.location.reload();
+            //this.toast.success({detail:"SUCCESS", summary:res.message, duration: 5000});
+            alert(res.message);
+          },error:(err)=>{
+            //this.toast.error({detail:"ERROR", summary:"Something went wrong!", duration: 5000});
+            alert("Something went wrong!");
+          }
+        })
     }else{
       console.log("form is not valid");
       this.validateAllFormFields(this.signupForm);
@@ -88,7 +104,9 @@ export class NavbarComponent implements OnInit {
   // on signout
   logout(){
     this.auth.signOut();
+    location.reload();
+    // this.isLoggedIn = false;
   }
-
+ 
 
 }

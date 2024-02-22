@@ -28,7 +28,7 @@
         <input class="form-control me-2 w-75 p-2 mt-1" type="search" placeholder="Search items" aria-label="Search">
 
       </form>
-      <button (click)="logout()">logout</button>
+    
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" href="#"><i class="bi bi-cart-fill"></i></a> <!-- Cart Icon -->
@@ -37,8 +37,9 @@
           <a class="nav-link" href="#"><i class="bi bi-heart-fill"></i></a> <!-- Love Icon -->
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#ModalFormLogin" href="#"><i
+          <a  *ngIf="!isLoggedIn" class="nav-link" data-bs-toggle="modal" data-bs-target="#ModalFormLogin" href="#"><i
               class="bi bi-person-fill"></i></a> <!-- User Icon -->
+          <a  *ngIf="isLoggedIn"  (click)="logout()" class="nav-link" href="#"><i class="bi bi-box-arrow-left"></i></a> <!-- User Icon -->
         </li>
 
       </ul>
@@ -109,13 +110,13 @@
               class="text-danger">*Name is required</small>
 
             <div class="mb-3 mt-4"
-              [class.error]="signupForm.controls['phoneno'].dirty && signupForm.hasError('required','phoneno')">
-              <label for="exampleInputphoneno" class="form-label">Phone No</label>
-              <input formControlName="phoneno" type="tel" class="form-control" id="exampleInputphoneno"
+              [class.error]="signupForm.controls['phoneNumber'].dirty && signupForm.hasError('required','phoneNumber')">
+              <label for="exampleInputphoneno" class="form-label">Phone Number</label>
+              <input formControlName="phoneNumber" type="tel" class="form-control" id="exampleInputphoneno"
                 aria-describedby="phonenoHelp">
             </div>
-            <small *ngIf="signupForm.controls['phoneno'].dirty && signupForm.hasError('required','phoneno')"
-              class="text-danger">*Phone no is required</small>
+            <small *ngIf="signupForm.controls['phoneNumber'].dirty && signupForm.hasError('required','phoneNumber')"
+              class="text-danger">*Phone number is required</small>
 
               <div class="mb-3"
               [class.error]="signupForm.controls['password'].dirty && signupForm.hasError('required','password')">

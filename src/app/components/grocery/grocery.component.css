@@ -37,8 +37,9 @@ a:hover {
 }
 
 .section-products .single-product .part-1 {
+   
     position: relative;
-    height: 290px;
+    height: 180px;
     max-height: 290px;
     margin-bottom: 20px;
     overflow: hidden;

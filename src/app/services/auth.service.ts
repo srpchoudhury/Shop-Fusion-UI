@@ -15,6 +15,9 @@ export class AuthService {
   onSignupSubmit(userObj:any){
     return this.http.post<any>(`${this.baseUrl}register`,userObj);
   }
+  AssignRole(userObj:any){
+    return this.http.post<any>(`${this.baseUrl}AssignRole`,userObj);
+  }
   signOut(){
     localStorage.clear();
     this.router.navigate(['home']);
@@ -24,7 +27,7 @@ export class AuthService {
     localStorage.setItem('token',tokenValue);
   }
   getToken(){
-    return localStorage.getItem('tokan');
+    return localStorage.getItem('token');
   }
   isLoggedIn():boolean{
       return !!localStorage.getItem('token');
