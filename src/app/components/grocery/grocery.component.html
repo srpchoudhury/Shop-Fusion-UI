@@ -60,8 +60,25 @@
                                                             <h3 class="product-title">
                                                                 {{ product.productName | slice:0:45 }}{{ product.productName.length > 45 ? '...' : '' }}</h3>
                                                             <!-- <h4 class="product-old-price">$79.99</h4> -->
-                                                            <h4 class="product-price">&#8377;
-                                                                    {{product.productPrice}}</h4>
+                                                            <div class="d-flex">
+                                                                <div class="first">
+                                                                        <h4 class="product-price">&#8377;
+                                                                                {{product.productPrice}}</h4>
+                                                                </div>
+                                                                <div class="second d-flex mx-2">
+                                                                       <div class="bg-info" style="padding: 5px;border-radius: 3px;">
+                                                                        <i class="bi bi-dash" ></i>
+                                                                       </div> 
+                                                                    <div>
+                                                                        quatity
+                                                                    </div>
+                                                                       <div class="bg-info" style="padding: 5px;border-radius: 5px;">
+                                                                        <i class="bi bi-plus " ></i>
+                                                                       </div>
+                                                                       
+                                                                </div>
+                                                            </div>
+                                                          
                                                     </div>
                                             </div>
                                     </div>

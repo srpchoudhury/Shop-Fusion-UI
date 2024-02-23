@@ -28,7 +28,6 @@
         <input class="form-control me-2 w-75 p-2 mt-1" type="search" placeholder="Search items" aria-label="Search">
 
       </form>
-    
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" href="#"><i class="bi bi-cart-fill"></i></a> <!-- Cart Icon -->
@@ -38,11 +37,18 @@
         </li>
         <li class="nav-item">
           <a  *ngIf="!isLoggedIn" class="nav-link" data-bs-toggle="modal" data-bs-target="#ModalFormLogin" href="#"><i
-              class="bi bi-person-fill"></i></a> <!-- User Icon -->
-          <a  *ngIf="isLoggedIn"  (click)="logout()" class="nav-link" href="#"><i class="bi bi-box-arrow-left"></i></a> <!-- User Icon -->
+              class="bi bi-person-fill"></i> </a> <!-- User Icon -->
+              
+              <div  *ngIf="isLoggedIn"  (click)="logout()" >
+                <span>Welcome, ({{ userDetails }})</span>
+                <i class="bi bi-box-arrow-left"></i>
+              </div>
+              
+          <!-- <a  *ngIf="isLoggedIn"  (click)="logout()" class="nav-link" href="#"><i class="bi bi-box-arrow-left"></i></a>  -->
         </li>
-
+    
       </ul>
+     
     </div>
   </div>
 </nav>

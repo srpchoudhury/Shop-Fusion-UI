@@ -16,7 +16,9 @@ export class NavbarComponent implements OnInit {
   eyeIcon: string ="bi-eye-slash-fill";
   loginForm!:FormGroup;
   signupForm!:FormGroup;
-  isLoggedIn: boolean = this.auth.isLoggedIn();
+  isLoggedIn: boolean = false;
+  userDetails: string ="";
+  
   constructor(
      private fb:FormBuilder,
      private auth: AuthService,
@@ -25,6 +27,7 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.isLoggedIn = this.auth.isLoggedIn(); 
     this.loginForm = this.fb.group({
       username: ['',Validators.required],
       password: ['',Validators.required]
@@ -53,8 +56,15 @@ export class NavbarComponent implements OnInit {
           // this.isLoggedIn = true;
           this.loginForm.reset();
           this.auth.storeToken(res.result.token);
-          this.router.navigate(['home']);
-          window.location.reload();
+          this.userDetails = res.result.user.name; 
+
+         
+        
+       //   window.location.reload();
+       this.isLoggedIn = true; // Update isLoggedIn to true
+     
+       document.getElementById('ModalFormLogin')?.classList.remove('show');
+       this.router.navigate(['home']);
           //this.toast.success({detail:"SUCCESS", summary:res.message, duration: 5000});
           alert(res.message);
         },error:(err)=>{
@@ -74,8 +84,10 @@ export class NavbarComponent implements OnInit {
         this.auth.onSignupSubmit(this.signupForm.value).subscribe({
           next:(res) => {
             this.signupForm.reset();
-            this.router.navigate(['home']);
-            window.location.reload();
+           
+           // window.location.reload();
+           document.getElementById('ModalFormSignup')?.classList.remove('show');
+           this.router.navigate(['home']);
             //this.toast.success({detail:"SUCCESS", summary:res.message, duration: 5000});
             alert(res.message);
           },error:(err)=>{
@@ -104,7 +116,7 @@ export class NavbarComponent implements OnInit {
   // on signout
   logout(){
     this.auth.signOut();
-    location.reload();
+    this.isLoggedIn = false; 
     // this.isLoggedIn = false;
   }
  
