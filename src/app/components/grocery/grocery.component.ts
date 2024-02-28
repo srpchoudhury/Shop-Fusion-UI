@@ -11,6 +11,7 @@ export class GroceryComponent implements OnInit {
   products: any = [];
   filteredProducts: any = [];
   originalProducts: any = [];
+  product: any = [];
 
   constructor(private productlistService: ProductlistService) { }
 
@@ -23,11 +24,10 @@ export class GroceryComponent implements OnInit {
     //get total product details
     this.productlistService.getProducts().subscribe(products => {
       this.products = Object.values(products.result);
-      this.originalProducts =this.products; 
-      console.log(this.originalProducts)
+      this.originalProducts = this.products;
     });
   }
-  
+
   //toggle side bar
   toggleCategory(category: any) {
     category.expanded = !category.expanded;
@@ -35,17 +35,13 @@ export class GroceryComponent implements OnInit {
   //after all changed
   showSubCategoryBasedProduct(event: Event) {
     let elementId: number = parseInt((event.target as Element).id, 10);
-      this.filteredProducts = this.originalProducts.filter((product: any) => product.subCategoryId === elementId);
-      this.products =  this.filteredProducts ;    
+    this.filteredProducts = this.originalProducts.filter((product: any) => product.subCategoryId === elementId);
+    this.products = this.filteredProducts;
   }
   //after subcategory changed
-  showCategoryBasedProduct(event: Event){
+  showCategoryBasedProduct(event: Event) {
     let elementId: number = parseInt((event.target as Element).id, 10);
     this.filteredProducts = this.originalProducts.filter((product: any) => product.categoryId === elementId);
-    this.products=this.filteredProducts;
-  }
-  //without login addtocart
-  iconClickAddToCart(){
-
+    this.products = this.filteredProducts;
   }
 }

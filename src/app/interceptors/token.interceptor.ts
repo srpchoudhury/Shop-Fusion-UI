@@ -29,6 +29,7 @@ export class TokenInterceptor implements HttpInterceptor {
     
     return next.handle(request).pipe(
       catchError((err:any) =>{
+       
         if(err instanceof HttpErrorResponse){
           if(err.status === 401){
             alert("Token is expired,please login again");
@@ -36,6 +37,7 @@ export class TokenInterceptor implements HttpInterceptor {
           }
         }
         return throwError(() => new Error('Some other error occured'))
+        
       })
     )
   }

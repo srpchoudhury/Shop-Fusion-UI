@@ -13,6 +13,7 @@ export class ProductlistService {
   getProducts(): Observable<any> {
     return this.http.get(this.baseUrl);
   }
+ 
   getItemCategoryDetails(): Observable<any> {
     return this.http.get(`${this.baseUrl}itemCategoryDetails`);
   }

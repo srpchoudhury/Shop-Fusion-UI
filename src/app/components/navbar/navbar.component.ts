@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/UserDetails';
 //import { NgToastService } from 'ng-angular-popup';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -9,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
+
 export class NavbarComponent implements OnInit {
 
   type: string = "password";
@@ -17,7 +19,8 @@ export class NavbarComponent implements OnInit {
   loginForm!:FormGroup;
   signupForm!:FormGroup;
   isLoggedIn: boolean = false;
-  userDetails: string ="";
+  userDetails: User = new User('', '', '', '');
+
   
   constructor(
      private fb:FormBuilder,
@@ -28,6 +31,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = this.auth.isLoggedIn(); 
+    this.loadUserDetails();
     this.loginForm = this.fb.group({
       username: ['',Validators.required],
       password: ['',Validators.required]
@@ -56,14 +60,11 @@ export class NavbarComponent implements OnInit {
           // this.isLoggedIn = true;
           this.loginForm.reset();
           this.auth.storeToken(res.result.token);
-          this.userDetails = res.result.user.name; 
-
-         
-        
-       //   window.location.reload();
-       this.isLoggedIn = true; // Update isLoggedIn to true
+          this.auth.storeUserDetails(res.result.user);
+        window.location.reload();
+       this.isLoggedIn = true;
      
-       document.getElementById('ModalFormLogin')?.classList.remove('show');
+    //   document.getElementById('ModalFormLogin')?.classList.remove('show');
        this.router.navigate(['home']);
           //this.toast.success({detail:"SUCCESS", summary:res.message, duration: 5000});
           alert(res.message);
@@ -85,8 +86,8 @@ export class NavbarComponent implements OnInit {
           next:(res) => {
             this.signupForm.reset();
            
-           // window.location.reload();
-           document.getElementById('ModalFormSignup')?.classList.remove('show');
+           window.location.reload();
+           //document.getElementById('ModalFormSignup')?.classList.remove('show');
            this.router.navigate(['home']);
             //this.toast.success({detail:"SUCCESS", summary:res.message, duration: 5000});
             alert(res.message);
@@ -113,11 +114,20 @@ export class NavbarComponent implements OnInit {
     })
   }
 
+  //get loggedInUserDetails from localstorage
+  loggedInUserDetails(){
+    return this.auth.getUserDetails();
+  }
+  loadUserDetails(): void {
+    const storedUserDetails = this.loggedInUserDetails();
+    if (storedUserDetails) {
+      this.userDetails = new User(storedUserDetails.id, storedUserDetails.email, storedUserDetails.name, storedUserDetails.phoneNumber);
+    }
+  }
   // on signout
   logout(){
     this.auth.signOut();
     this.isLoggedIn = false; 
-    // this.isLoggedIn = false;
   }
  
 
