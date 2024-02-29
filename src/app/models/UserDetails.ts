@@ -26,36 +26,39 @@ export interface productType {
   subCategoryId:number,
   subCategoryName: string
 }
-export interface cartDto{
-  CartHeader: cartHeaderDto,
-  CardDetails: cartDetailsDto
-}
-export interface cartHeaderDto{
-    cartHeaderId: number,
-    userId: string,
-    couponCode: string,
-    discount: number,
-    cartTotal: number
-}
-export interface cartDetailsDto{
-  CartDetailsId : number,
-  CartHeaderId : number,       
-  CartHeaderDto: cartHeaderDto,
-  ProductId: number,
-  ProductDto: productDto,
-  Count : number
-}
-export interface productDto{
-  productId:number,
-  productName:string,
-  productDescription:string,
-  productImage: string,
-  productPrice:number,
-  categoryName: string,
-  subCategoryName: string,
-  categoryId:number,
-  subCategoryId:number
+
+interface CartHeaderDto {
+  cartHeaderId: number;
+  userId: string;
+  couponCode?: string;
+  discount: number;
+  cartTotal: number;
 }
 
-   
+interface ProductDto {
+  productId: number;
+  productName: string;
+  productDescription: string;
+  productImage: string;
+  productPrice: number;
+  categoryName: string;
+  subCategoryName: string;
+  categoryId: number;
+  subCategoryId: number;
+}
 
+interface CartDetailsDto {
+  cartDetailsId: number;
+  cartHeaderId: number;
+  cartHeader?: CartHeaderDto;
+  productId: number;
+  product?: ProductDto;
+  count: number;
+}
+
+interface CartDto {
+  cartHeader: CartHeaderDto;
+  cartDetails?: CartDetailsDto[];
+}
+
+export { CartDto, CartHeaderDto, CartDetailsDto, ProductDto };

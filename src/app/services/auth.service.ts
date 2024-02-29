@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartDto } from '../models/UserDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,7 @@ export class AuthService {
   getUserDetails(){
     return JSON.parse(localStorage.getItem("userDetails")!!);
   }
+ 
   isLoggedIn():boolean{
       return !!localStorage.getItem('token');
   }
