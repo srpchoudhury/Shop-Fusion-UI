@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/UserDetails';
 //import { NgToastService } from 'ng-angular-popup';
 import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-navbar',
@@ -20,12 +21,14 @@ export class NavbarComponent implements OnInit {
   signupForm!:FormGroup;
   isLoggedIn: boolean = false;
   userDetails: User = new User('', '', '', '');
+  productCount: number=0;
 
   
   constructor(
      private fb:FormBuilder,
      private auth: AuthService,
-     private router: Router
+     private router: Router,
+     private cart: CartService
    //  private toast: NgToastService
   ) { }
 
@@ -42,6 +45,14 @@ export class NavbarComponent implements OnInit {
       phoneNumber:['',Validators.required],
       password:['',Validators.required],
       role:['USER']
+    });
+    this.cart.productAddedToCart.subscribe(() => {
+      this.cartProductCount();
+    });
+    // Initial count
+    this.cartProductCount();
+    this.auth.logoutEvent.subscribe(() => {
+      this.cartProductCount();
     });
   }
   
@@ -128,6 +139,15 @@ export class NavbarComponent implements OnInit {
   logout(){
     this.auth.signOut();
     this.isLoggedIn = false; 
+  }
+
+  cartProductCount(){
+    if(this.auth.isLoggedIn()){
+     
+    }else{
+      this.productCount= this.cart.getWithoutLoginAddToCart().cartDetails.length; 
+    }
+  
   }
  
 

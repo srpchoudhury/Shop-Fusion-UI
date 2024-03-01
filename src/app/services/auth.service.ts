@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter  } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartDto } from '../models/UserDetails';
 
@@ -8,6 +8,7 @@ import { CartDto } from '../models/UserDetails';
 })
 export class AuthService {
   private baseUrl: string = "https://localhost:7002/api/auth/";
+  logoutEvent: EventEmitter<void> = new EventEmitter<void>();
   constructor(private http: HttpClient, private router: Router) { }
 
   onLoginSubmit(loginObj:any){
@@ -20,7 +21,9 @@ export class AuthService {
     return this.http.post<any>(`${this.baseUrl}AssignRole`,userObj);
   }
   signOut(){
-    localStorage.clear();
+    localStorage.removeItem('token');
+    localStorage.removeItem('userDetails');
+    this.logoutEvent.emit();
     this.router.navigate(['home']);
   }
 

@@ -175,10 +175,13 @@ export class GroceryComponent implements OnInit {
   filteredProducts: any = [];
   originalProducts: any = [];
   cartDto!: any;
+  mainImageUrl: string = 'https://i.imgur.com/Dhebu4F.jpg';
+  productDetails: any;
 
   constructor(private productlistService: ProductlistService,
               private cartService: CartService,
               private auth: AuthService
+              
   ) { }
 
   ngOnInit(): void {
@@ -288,5 +291,13 @@ export class GroceryComponent implements OnInit {
 
     this.cartService.storeWithoutLoginAddToCart(existingCartDetails);
   }
+  changeImage(event: any) {
+    const clickedImage = event.target;
+    this.mainImageUrl = clickedImage.src;
+  }
+  openProductDetailsModal(product:any){
+    this.productDetails = product;
+  }
+  
 }
 

@@ -40,11 +40,11 @@
                             <div class="row">
                                     <!-- Single Product -->
                                     <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let product of products">
-                                            <div id="product-1" class="single-product">
+                                            <div id="product-1" class="single-product" (click)="openProductDetailsModal(product)" data-bs-toggle="modal" data-bs-target="#ModalFormProductDetails">
                                                     <div class="part-1 text-center">
                                                             <img [src]="product.productImage" class="img-fluid"
                                                                     style="max-width: 100%;height: 100%;" alt="">
-                                                            <ul>
+                                                            <!-- <ul>
                                                                     <li><a [routerLink]="['/grocery']" (click)="AddToCart(product.productId)"><i class="bi bi-cart-plus-fill"></i></a>
                                                                     </li>
                                                                     <li><a href="#"><i class="bi bi-heart-fill"></i></a>
@@ -54,7 +54,7 @@
 
                                                                     <li><a href="#"><i class="bi bi-arrows-angle-expand"></i></a>
                                                                     </li>
-                                                            </ul>
+                                                            </ul> -->
                                                     </div>
                                                     <div class="part-2">
                                                             <h3 class="product-title">
@@ -65,7 +65,7 @@
                                                                         <h4 class="product-price">&#8377;
                                                                                 {{product.productPrice}}</h4>
                                                                 </div>
-                                                                <div class="second d-flex mx-2">
+                                                               <div class="second d-flex mx-2">
                                                                        <div class="bg-info" style="padding: 5px;border-radius: 3px;">
                                                                         <i class="bi bi-dash" ></i>
                                                                        </div> 
@@ -76,9 +76,14 @@
                                                                         <i class="bi bi-plus " ></i>
                                                                        </div>
                                                                        
-                                                                </div>
+                                                                </div> 
+                                                               
                                                             </div>
-                                                          
+                                                            <!-- <div class=" d-flex">
+                                                                <button class="btn btn-danger"> Whitlist</button>
+                                                                <button class="btn btn-success px-3"  [routerLink]="['/grocery']" (click)="AddToCart(product.productId)">Add To Cart</button>
+                                                        </div>
+                                                           -->
                                                     </div>
                                             </div>
                                     </div>
@@ -89,3 +94,63 @@
 
     </div>
 </div>
+<div class="modal fade" id="ModalFormProductDetails" tabindex="-1" aria-labelledby="ModalFormLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <div class="modal-body">
+              <button type="button" class="btn-close btn-close-black float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+              <div class="container-fluid mt-2 mb-2">
+                <div class="row d-flex justify-content-center">
+                  <div class="col-md-6">
+                    <div class="images p-1">
+                      <div class="text-center p-2">
+                        <img id="main-image" [src]="productDetails?.productImage" class="img-fluid" width="250" />
+                      </div>
+                      <div class="thumbnail text-center">
+                        <img (click)="changeImage($event)" [src]="productDetails?.productImage" class="img-thumbnail" width="70">
+                        <img (click)="changeImage($event)" [src]="productDetails?.productImage" class="img-thumbnail" width="70">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="product p-4">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <p data-bs-dismiss="modal"><i class="bi bi-arrow-left"></i> Back</p>
+                        <p><i class="bi bi-cart-plus-fill text-muted"></i></p>
+                      </div>
+                      <div class="mt-4 mb-3">
+                        <span class="text-uppercase text-muted brand"> {{ productDetails?.categoryName }}</span>
+                        <h5 class="text-uppercase">{{productDetails?.brandName}}</h5>
+                        <p class="about"> {{ productDetails?.productName }}</p>
+                        <div class="price d-flex flex-row align-items-center">
+                          <span class="act-price px-2"> ${{productDetails?.productPrice}}</span>
+                          <div class="ml-2">
+                            <small class="dis-price px-2">$59</small> <span class="text-success">40% OFF</span>
+                          </div>
+                        </div>
+                      </div>
+                      <p class="about">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis quaerat eaque qui sint itaque, ullam maiores sequi nam consectetur </p>
+                      <div class="sizes mt-5">
+                        <h6 class="text-uppercase">Size</h6>
+                        <label class="radio">
+                          <input type="radio" name="size" value="1Kg" checked> <span>1 Kg</span>
+                        </label>
+                        <label class="radio">
+                          <input type="radio" name="size" value="500 Gm"> <span>500 Gm</span>
+                        </label>
+                      </div>
+                      <div class="cart mt-4 align-items-center">
+                        <button class="btn btn-danger text-uppercase mr-2 px-4" [routerLink]="['/grocery']" (click)="AddToCart(productDetails?.productId)">Add to Cart</button>
+                        <span class="p-4"> <i class="bi bi-heart-fill text-muted"></i></span>
+                        <span><i class="bi bi-share-fill text-muted"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      

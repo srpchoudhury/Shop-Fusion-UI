@@ -7,6 +7,7 @@ import { HomeContentComponent } from './components/home-content/home-content.com
 import { GroceryComponent } from './components/grocery/grocery.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
+import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 
 
 
@@ -17,7 +18,9 @@ const routes: Routes = [
   { path: 'footer',component: FooterComponent},
   { path: 'homecontent', component: HomeContentComponent},
   { path: 'grocery', component: GroceryComponent},
+  { path: 'cartsummary', component: CartSummaryComponent},
   { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]}
+
 
 
 
