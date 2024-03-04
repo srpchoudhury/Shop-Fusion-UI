@@ -137,6 +137,7 @@ export class NavbarComponent implements OnInit {
   }
   // on signout
   logout(){
+    alert('Are you sure to Logout');
     this.auth.signOut();
     this.isLoggedIn = false; 
   }
@@ -152,7 +153,11 @@ export class NavbarComponent implements OnInit {
         }
       })
     }else{
-      this.productCount= this.cart.getWithoutLoginAddToCart().cartDetails.length; 
+      const details=this.cart.getWithoutLoginAddToCart();
+      if(details!= null){
+        this.productCount=details.cartDetails.length; 
+      }
+      // this.productCount= this.cart.getWithoutLoginAddToCart().cartDetails.length; 
     }
   
   }

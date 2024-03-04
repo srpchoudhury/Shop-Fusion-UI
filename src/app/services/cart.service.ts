@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartDto } from '../models/UserDetails';
@@ -23,14 +23,14 @@ export class CartService {
       })
     );
   }
-  GetCart(userId: string): Observable<any> {
-    return this.http.get<number>(`${this.baseUrl}GetCart/${userId}`);
-  }
   storeWithoutLoginAddToCart(itemDetails: any): void {
     console.log("succesfully added");
-  
     localStorage.setItem('itemDetails', JSON.stringify(itemDetails));
     this.productAddedToCart.emit();
+  }
+  
+  GetCart(userId: string): Observable<any> {
+    return this.http.get<number>(`${this.baseUrl}GetCart/${userId}`);
   }
   getWithoutLoginAddToCart(): any {
     const itemDetailsString = localStorage.getItem("itemDetails");
@@ -40,5 +40,15 @@ export class CartService {
       return null;
     }
   }
+
+  RemoveCart(userId: string, productId: number): Observable<any> {
+    const params = new HttpParams().set('userId', userId).set('productId', productId.toString());
+    return this.http.post<any>(`${this.baseUrl}RemoveCart`, {}, { params });
+  }
+  RemoveCartWithOutLogIn(){
+    
+  }
+  
+ 
   
 }

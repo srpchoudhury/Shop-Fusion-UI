@@ -6,7 +6,10 @@
                     <div class="col">
                         <h4><b>Shopping Cart</b></h4>
                     </div>
-                    <div class="col align-self-center text-right ">{{cartItmes.cartDetails.length}} Items</div>
+                    <ng-container *ngIf="cartItmes">
+                        <div class="col align-self-center text-right ">{{cartItmes.cartDetails.length}} Items</div>
+                    </ng-container>
+                  
                 </div>
             </div>
             <div class="overflow-auto card-height" >
@@ -22,7 +25,7 @@
                                         > 25 ? '...' : '' }}</div>
                                 </div>
                                 <div class="col">
-                                    <a href="#" class="nav-item"><i class="bi bi-dash"></i></a><a href="#" class="border nav-item">{{item.count}}</a><a href="#" class="nav-item"><i class="bi bi-plus"></i></a>
+                                    <a [routerLink]="['/cartsummary']" (click)="removeCart(item.product.productId)" class="nav-item"><i class="bi bi-dash"></i></a><span class="border p-1">{{item.count}}</span><a href="#" class="nav-item"><i class="bi bi-plus"></i></a>
                                 </div>
                                 <div class="col">&#8377; {{item.product.productPrice}} 
                                 </div>
@@ -37,14 +40,16 @@
             <a [routerLink]="['/home']" class="nav-link p-1"><i class="bi bi-arrow-left-square-fill"></i><span
                     class="text-muted">Back to shop</span></a>
         </div>
-        <div class="col-md-4 summary">
+        <div class="col-md-4 summary" >
             <div>
                 <h5><b>Summary</b></h5>
             </div>
             <hr>
-            <div class="row">
-                <div class="col" style="padding-left:0;">ITEMS {{cartItmes.cartDetails.length}}</div>
+            <div class="row" >
+                <ng-container *ngIf="cartItmes">
+                <div class="col" style="padding-left:0;">ITEMS : {{cartItmes.cartDetails.length}}</div>
                 <div class="col text-right">&#8377; {{cartItmes.cartHeader.cartTotal}}</div>
+            </ng-container>
             </div>
             <form>
                 <p>SHIPPING</p>
@@ -56,7 +61,9 @@
             </form>
             <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                 <div class="col">TOTAL PRICE</div>
+                <ng-container *ngIf="cartItmes">
                 <div class="col text-right">&#8377; {{cartItmes.cartHeader.cartTotal}}</div>
+                </ng-container>
             </div>
             <button class="btn" (click)="checkout()">CHECKOUT</button>
         </div>

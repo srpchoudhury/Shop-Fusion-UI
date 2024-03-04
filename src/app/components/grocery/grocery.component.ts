@@ -241,9 +241,9 @@ export class GroceryComponent implements OnInit {
         if (this.auth.isLoggedIn()) {
           this.cartService.sendCartData(this.cartDto).subscribe(response => {
             if (response.isSuccess) {
-              console.log('successfully added');
+              alert('successfully added');
             } else {
-              console.log('cant insert cart items');
+              alert('cant insert cart items');
             }
           });
         } else {
@@ -260,9 +260,12 @@ export class GroceryComponent implements OnInit {
     console.log(existingCartDetails);
 
     this.totalSum = 0;
-    for (let item of existingCartDetails.cartDetails) {
-      this.totalSum += (item.product.productPrice * item.count);
+    if(existingCartDetails != null){
+      for (let item of existingCartDetails.cartDetails) {
+        this.totalSum += (item.product.productPrice * item.count);
+      }
     }
+    
 console.log(this.totalSum)
     if (!existingCartDetails) {
       existingCartDetails = {
