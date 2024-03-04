@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit {
     this.cart.productAddedToCart.subscribe(() => {
       this.cartProductCount();
     });
-    // Initial count
+    
     this.cartProductCount();
     this.auth.logoutEvent.subscribe(() => {
       this.cartProductCount();
@@ -143,7 +143,14 @@ export class NavbarComponent implements OnInit {
 
   cartProductCount(){
     if(this.auth.isLoggedIn()){
-     
+      
+      const userId = this.auth.getUserDetails().id;
+  
+      this.cart.GetCart(userId).subscribe({ 
+        next: (response) =>{
+          this.productCount= response.result.cartDetails.length;
+        }
+      })
     }else{
       this.productCount= this.cart.getWithoutLoginAddToCart().cartDetails.length; 
     }

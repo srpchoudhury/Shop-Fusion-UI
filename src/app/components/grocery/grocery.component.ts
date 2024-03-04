@@ -177,11 +177,12 @@ export class GroceryComponent implements OnInit {
   cartDto!: any;
   mainImageUrl: string = 'https://i.imgur.com/Dhebu4F.jpg';
   productDetails: any;
+  totalSum: any;
 
   constructor(private productlistService: ProductlistService,
-              private cartService: CartService,
-              private auth: AuthService
-              
+    private cartService: CartService,
+    private auth: AuthService
+
   ) { }
 
   ngOnInit(): void {
@@ -225,16 +226,11 @@ export class GroceryComponent implements OnInit {
         const loggedInUserId = this.auth.isLoggedIn() ? this.auth.getUserDetails().id : 0;
         this.cartDto = {
           cartHeader: {
-           
-            userId: loggedInUserId
-            
+            userId: loggedInUserId,
           },
           cartDetails: [{
-           
             cartHeader: {
-              
               userId: loggedInUserId,
-             
             },
             productId: productDetails.productId,
             product: productDetails,
@@ -261,7 +257,13 @@ export class GroceryComponent implements OnInit {
 
   updateCartDetailsWithoutLogin(productDetails: any) {
     let existingCartDetails = this.cartService.getWithoutLoginAddToCart();
-   
+    console.log(existingCartDetails);
+
+    this.totalSum = 0;
+    for (let item of existingCartDetails.cartDetails) {
+      this.totalSum += (item.product.productPrice * item.count);
+    }
+console.log(this.totalSum)
     if (!existingCartDetails) {
       existingCartDetails = {
         cartHeader: {
@@ -269,24 +271,26 @@ export class GroceryComponent implements OnInit {
           userId: 0,
           couponCode: '',
           discount: 0,
-          cartTotal: 0
+          cartTotal: this.totalSum
         },
         cartDetails: []
       };
     }
-   
-  if (!existingCartDetails.cartDetails) {
-    existingCartDetails.cartDetails = [];
-  }
+
+    if (!existingCartDetails.cartDetails) {
+      existingCartDetails.cartDetails = [];
+    }
     let existingProductIndex = existingCartDetails.cartDetails.findIndex((cartDetail: any) => cartDetail.productId === productDetails.productId);
     if (existingProductIndex !== -1) {
       existingCartDetails.cartDetails[existingProductIndex].count++;
+      existingCartDetails.cartHeader.cartTotal= this.totalSum;
     } else {
       existingCartDetails.cartDetails.push({
         productId: productDetails.productId,
         product: productDetails,
         count: 1
       });
+      existingCartDetails.cartHeader.cartTotal= this.totalSum;
     }
 
     this.cartService.storeWithoutLoginAddToCart(existingCartDetails);
@@ -295,9 +299,9 @@ export class GroceryComponent implements OnInit {
     const clickedImage = event.target;
     this.mainImageUrl = clickedImage.src;
   }
-  openProductDetailsModal(product:any){
+  openProductDetailsModal(product: any) {
     this.productDetails = product;
   }
-  
+
 }
 

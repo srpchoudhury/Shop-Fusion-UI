@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartDto } from '../models/UserDetails';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,14 @@ export class CartService {
   //   return this.http.post<any>(`${this.baseUrl}CartUpsert`,cartData);
   // }
   sendCartData(cartDto: CartDto): Observable<any> {
-    return this.http.post<CartDto>(`${this.baseUrl}CartUpsert`,cartDto);
+    return this.http.post<CartDto>(`${this.baseUrl}CartUpsert`,cartDto).pipe(
+      tap(() => {
+        this.productAddedToCart.emit();
+      })
+    );
+  }
+  GetCart(userId: string): Observable<any> {
+    return this.http.get<number>(`${this.baseUrl}GetCart/${userId}`);
   }
   storeWithoutLoginAddToCart(itemDetails: any): void {
     console.log("succesfully added");
@@ -27,7 +34,6 @@ export class CartService {
   }
   getWithoutLoginAddToCart(): any {
     const itemDetailsString = localStorage.getItem("itemDetails");
-   
     if (itemDetailsString) {
       return JSON.parse(itemDetailsString);
     } else {

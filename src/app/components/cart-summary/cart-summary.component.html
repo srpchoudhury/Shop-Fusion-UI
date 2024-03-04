@@ -1,1 +1,65 @@
-<p>cart-summary works!</p>
+<div class="card">
+    <div class="row">
+        <div class="col-md-8 cart">
+            <div class="title">
+                <div class="row">
+                    <div class="col">
+                        <h4><b>Shopping Cart</b></h4>
+                    </div>
+                    <div class="col align-self-center text-right ">{{cartItmes.cartDetails.length}} Items</div>
+                </div>
+            </div>
+            <div class="overflow-auto card-height" >
+                <ng-container *ngIf="cartItmes">
+                    <ng-container *ngFor="let item of cartItmes.cartDetails">
+                        <div class="row border-top border-bottom">
+                            <div class="row main align-items-center">
+                                <div class="col-2"><img class="img-fluid" [src]="item.product.productImage"></div>
+                                <div class="col">
+                                    <div class="row text-muted">{{item.product.subCategoryName}}</div>
+                                    <!-- <div class="row">{{item.product.productName}}</div> -->
+                                    <div> {{ item.product.productName | slice:0:25 }}{{ item.product.productName.length
+                                        > 25 ? '...' : '' }}</div>
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="nav-item"><i class="bi bi-dash"></i></a><a href="#" class="border nav-item">{{item.count}}</a><a href="#" class="nav-item"><i class="bi bi-plus"></i></a>
+                                </div>
+                                <div class="col">&#8377; {{item.product.productPrice}} 
+                                </div>
+                                <div class="col">
+                                    <span class="bi bi-trash-fill"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+            <a [routerLink]="['/home']" class="nav-link p-1"><i class="bi bi-arrow-left-square-fill"></i><span
+                    class="text-muted">Back to shop</span></a>
+        </div>
+        <div class="col-md-4 summary">
+            <div>
+                <h5><b>Summary</b></h5>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col" style="padding-left:0;">ITEMS {{cartItmes.cartDetails.length}}</div>
+                <div class="col text-right">&#8377; {{cartItmes.cartHeader.cartTotal}}</div>
+            </div>
+            <form>
+                <p>SHIPPING</p>
+                <select>
+                    <option class="text-muted">Standard-Delivery- &#8377; 5.00</option>
+                </select>
+                <p>GIVE CODE</p>
+                <input id="code" placeholder="Enter your code">
+            </form>
+            <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                <div class="col">TOTAL PRICE</div>
+                <div class="col text-right">&#8377; {{cartItmes.cartHeader.cartTotal}}</div>
+            </div>
+            <button class="btn" (click)="checkout()">CHECKOUT</button>
+        </div>
+    </div>
+
+</div>
