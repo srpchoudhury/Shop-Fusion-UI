@@ -179,6 +179,10 @@ export class GroceryComponent implements OnInit {
   productDetails: any;
   totalSum: any;
 
+  showBrand:boolean = false;
+  allBrands:any;
+  selectedCheckboxIds: number[] = [];
+
   constructor(private productlistService: ProductlistService,
     private cartService: CartService,
     private auth: AuthService
@@ -188,6 +192,7 @@ export class GroceryComponent implements OnInit {
   ngOnInit(): void {
     this.loadItemCategories();
     this.loadProducts();
+    this.loadBrand();
   }
 
   loadItemCategories() {
@@ -203,10 +208,25 @@ export class GroceryComponent implements OnInit {
       this.originalProducts = this.products;
     });
   }
+  loadBrand(){
+    this.productlistService.getBrands().subscribe({
+      next: (res)  => {
+        this.allBrands = res.result;
+        console.log(this.allBrands);
+      },error: (err) => {
+        alert(err.message);
+      }
+    });
+  }
 
   toggleCategory(category: any) {
     category.expanded = !category.expanded;
   }
+
+  toggleBrand(){
+    this.showBrand = !this.showBrand;
+  }
+  
 
   showSubCategoryBasedProduct(event: Event) {
     let elementId: number = parseInt((event.target as Element).id, 10);
@@ -217,6 +237,11 @@ export class GroceryComponent implements OnInit {
   showCategoryBasedProduct(event: Event) {
     let elementId: number = parseInt((event.target as Element).id, 10);
     this.filteredProducts = this.originalProducts.filter((product: any) => product.categoryId === elementId);
+    this.products = this.filteredProducts;
+  } 
+  showBrandBasedProduct(event:Event){
+    let elementId: number = parseInt((event.target as Element).id, 10);
+    this.filteredProducts = this.originalProducts.filter((product:any) => product.brandId === elementId);
     this.products = this.filteredProducts;
   }
 
