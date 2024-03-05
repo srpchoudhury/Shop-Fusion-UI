@@ -10,45 +10,38 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
+       
       </ul>
       <form class="d-flex justify-content-center flex-grow-1" role="search">
         <input class="form-control me-2 w-75 p-2 mt-1" type="search" placeholder="Search items" aria-label="Search">
 
       </form>
-      <ul class="navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/cartsummary']" ><i class="bi bi-cart-fill"></i></a>{{productCount}} <!-- Cart Icon -->
+      <ul class="navbar-nav mb-0 mb-lg-0">
+        <li class="nav-item ">
+          <a class="nav-link " [routerLink]="['/cartsummary']"><i class="bi bi-cart-fill"></i>
+            <span *ngIf="productCount>0"
+              class="text-white text-bg-danger  px-1 py-1  pb-0 mx-0 mt-0 border-1  rounded-5">
+              {{productCount}}
+            </span>
+          </a> <!-- Cart Icon -->
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#"><i class="bi bi-heart-fill"></i></a> <!-- Love Icon -->
         </li>
         <li class="nav-item">
-          <a  *ngIf="!isLoggedIn" class="nav-link" data-bs-toggle="modal" data-bs-target="#ModalFormLogin" href="#"><i
+          <a *ngIf="!isLoggedIn" class="nav-link" data-bs-toggle="modal" data-bs-target="#ModalFormLogin" href="#"><i
               class="bi bi-person-fill"></i> </a> <!-- User Icon -->
-              
-              <div  *ngIf="isLoggedIn"  (click)="logout()" >
-                <span  class="text-info fw-bold"> ({{ userDetails.name | titlecase }})</span>
-                <span class="text-body-tertiary fw-bold p-2">Logout</span>
-              </div>
-              
+
+          <div *ngIf="isLoggedIn" (click)="logout()">
+            <span class="text-info fw-bold"> ({{ userDetails.name | titlecase }})</span>
+            <span class="text-body-tertiary fw-bold p-2">Logout</span>
+          </div>
+
           <!-- <a  *ngIf="isLoggedIn"  (click)="logout()" class="nav-link" href="#"><i class="bi bi-box-arrow-left"></i></a>  -->
         </li>
-    
+
       </ul>
-     
+
     </div>
   </div>
 </nav>
@@ -124,7 +117,7 @@
             <small *ngIf="signupForm.controls['phoneNumber'].dirty && signupForm.hasError('required','phoneNumber')"
               class="text-danger">*Phone number is required</small>
 
-              <div class="mb-3"
+            <div class="mb-3"
               [class.error]="signupForm.controls['password'].dirty && signupForm.hasError('required','password')">
               <label for="exampleInputPassword1" class="form-label">Password</label>
               <div class="input-field d-flex">
@@ -135,7 +128,7 @@
             <small *ngIf="signupForm.controls['password'].dirty && signupForm.hasError('required','password')"
               class="text-danger">*Password is required</small>
 
-            <button (click)="onSignupSubmit()"  type="submit" class="btn btn-dark mt-3">SIGN UP</button>
+            <button (click)="onSignupSubmit()" type="submit" class="btn btn-dark mt-3">SIGN UP</button>
             <p>Already have account? <a data-bs-toggle="modal" data-bs-target="#ModalFormLogin" href="#">Login now</a>
             </p>
           </form>

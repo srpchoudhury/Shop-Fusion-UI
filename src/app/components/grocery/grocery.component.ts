@@ -199,6 +199,7 @@ export class GroceryComponent implements OnInit {
   loadProducts() {
     this.productlistService.getProducts().subscribe(products => {
       this.products = Object.values(products.result);
+      console.log(this.products)
       this.originalProducts = this.products;
     });
   }
@@ -257,16 +258,8 @@ export class GroceryComponent implements OnInit {
 
   updateCartDetailsWithoutLogin(productDetails: any) {
     let existingCartDetails = this.cartService.getWithoutLoginAddToCart();
-    console.log(existingCartDetails);
-
+  
     this.totalSum = 0;
-    if(existingCartDetails != null){
-      for (let item of existingCartDetails.cartDetails) {
-        this.totalSum += (item.product.productPrice * item.count);
-      }
-    }
-    
-console.log(this.totalSum)
     if (!existingCartDetails) {
       existingCartDetails = {
         cartHeader: {
@@ -286,17 +279,23 @@ console.log(this.totalSum)
     let existingProductIndex = existingCartDetails.cartDetails.findIndex((cartDetail: any) => cartDetail.productId === productDetails.productId);
     if (existingProductIndex !== -1) {
       existingCartDetails.cartDetails[existingProductIndex].count++;
-      existingCartDetails.cartHeader.cartTotal= this.totalSum;
+
     } else {
       existingCartDetails.cartDetails.push({
         productId: productDetails.productId,
         product: productDetails,
         count: 1
       });
-      existingCartDetails.cartHeader.cartTotal= this.totalSum;
     }
-
+    if (existingCartDetails != null) {
+      for (let item of existingCartDetails.cartDetails) {
+        this.totalSum += (item.product.productPrice * item.count);
+      }
+      existingCartDetails.cartHeader.cartTotal = this.totalSum;
+    }
+    console.log(existingCartDetails);
     this.cartService.storeWithoutLoginAddToCart(existingCartDetails);
+    alert('Added successfullly');
   }
   changeImage(event: any) {
     const clickedImage = event.target;

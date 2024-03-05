@@ -24,7 +24,6 @@ export class CartService {
     );
   }
   storeWithoutLoginAddToCart(itemDetails: any): void {
-    console.log("succesfully added");
     localStorage.setItem('itemDetails', JSON.stringify(itemDetails));
     this.productAddedToCart.emit();
   }
@@ -43,11 +42,13 @@ export class CartService {
 
   RemoveCart(userId: string, productId: number): Observable<any> {
     const params = new HttpParams().set('userId', userId).set('productId', productId.toString());
-    return this.http.post<any>(`${this.baseUrl}RemoveCart`, {}, { params });
+    return this.http.post<any>(`${this.baseUrl}RemoveCart`, {}, { params }).pipe(
+      tap(() => {
+        this.productAddedToCart.emit();
+      })
+    )
   }
-  RemoveCartWithOutLogIn(){
-    
-  }
+ 
   
  
   
