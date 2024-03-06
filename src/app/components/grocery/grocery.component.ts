@@ -194,11 +194,25 @@ export class GroceryComponent implements OnInit {
     this.loadProducts();
     this.loadBrand();
   }
+  
 
-  loadItemCategories() {
+  /*loadItemCategories() {
     this.productlistService.getItemCategoryDetails().subscribe(itemCategories => {
       this.itemCategories = Object.values(itemCategories.result);
+      console.log(this.itemCategories)
     });
+  }*/
+  
+  loadItemCategories() {
+    this.productlistService.getItemCategoryDetails().subscribe({
+      next: (res) => {
+        this.itemCategories = res.result;
+      }
+      ,error: (err) => {
+        alert(err.message);
+      }
+    });
+   
   }
 
   loadProducts() {
@@ -216,6 +230,7 @@ export class GroceryComponent implements OnInit {
       }
     });
   }
+  
 
   toggleCategory(category: any) {
     category.expanded = !category.expanded;

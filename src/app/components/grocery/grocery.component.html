@@ -1,16 +1,17 @@
 <div class="row m-3">
   <div class="col-md-3" style="background-color: #ffffff;">
     <div class="sidebar">
-     
-      <ng-container *ngIf="itemCategories">
+
+     <ng-container *ngIf="itemCategories">
         <ng-container *ngFor="let mainCategory of itemCategories[0]?.mainCategories">
+        
           <li [attr.id]="mainCategory.mainCategoryId" class="fw-bold text-muted">
             <!-- <span (click)="toggleMainCategory(mainCategory)"> -->
             <!-- <i class="bi" [ngClass]="{'bi-plus': !mainCategory.expanded, 'bi-dash': mainCategory.expanded}"></i> -->
             {{ mainCategory.mainCategoryName }}
             <!-- </span> -->
           </li>
-         
+
           <ul class="border">
             <!-- *ngIf="mainCategory.expanded" -->
 
@@ -34,20 +35,21 @@
             </ng-container>
           </ul>
         </ng-container>
-      </ng-container>
+      </ng-container> 
       <div class="filter">
 
-        <div class="fw-bold text-muted" >FILTERS</div>
+        <div class="fw-bold text-muted">FILTERS</div>
         <hr>
         <div class="d-flex" (click)="toggleBrand()">
-          <div class="brand fw-bold text-muted" >BRAND</div>
+          <div class="brand fw-bold text-muted">BRAND</div>
           <span><i class="bi bi-caret-down"></i></span>
         </div>
-        
+
         <div class="first-filter" *ngIf="showBrand">
           <ng-container *ngFor="let item of allBrands">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" [id]="item.id"  [attr.id]="item.id" (click)="showBrandBasedProduct($event)">
+              <input class="form-check-input" type="checkbox" [id]="item.id" [attr.id]="item.id"
+                (click)="showBrandBasedProduct($event)">
               <label class="form-check-label" for="flexCheckChecked">{{item.brandName}}</label>
             </div>
           </ng-container>
@@ -56,13 +58,13 @@
         <hr>
 
         <div class="second-filter">
-          <div class="low-to-high fw-bold text-muted" (click)="showBasedOnPriceLowToHigh()" >Price -- Low to High</div>
+          <div class="low-to-high fw-bold text-muted" (click)="showBasedOnPriceLowToHigh()">Price -- Low to High</div>
         </div>
 
         <hr>
 
         <div class="third-filter">
-          <div class="low-to-high fw-bold text-muted" (click)="showBasedOnPriceHighToLow()" >Price -- High to Low</div>
+          <div class="low-to-high fw-bold text-muted" (click)="showBasedOnPriceHighToLow()">Price -- High to Low</div>
         </div>
         <hr>
 
