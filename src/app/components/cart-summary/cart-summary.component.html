@@ -17,7 +17,9 @@
                     <ng-container *ngFor="let item of cartItmes.cartDetails">
                         <div class="row border-top border-bottom">
                             <div class="row main align-items-center">
-                                <div class="col-2"><img class="img-fluid" [src]="item.product.productImage"></div>
+                                <div class="col-2">
+                                    <img class="img-fluid w-25 mx-4"  [src]="item.product.productImage">
+                                </div>
                                 <div class="col">
                                     <div class="row text-muted">{{item.product.subCategoryName}}</div>
                                     <!-- <div class="row">{{item.product.productName}}</div> -->
