@@ -163,6 +163,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { ProductlistService } from 'src/app/services/productlist.service';
 import { CartDto, productType } from 'src/app/models/UserDetails';
 import { AuthService } from 'src/app/services/auth.service';
+import { NotExpr } from '@angular/compiler';
 
 @Component({
   selector: 'app-grocery',
@@ -171,6 +172,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class GroceryComponent implements OnInit {
   itemCategories: any = [];
+  mainCategoryId: number=0;
   products: productType[] = [];
   filteredProducts: any = [];
   originalProducts: any = [];
@@ -178,6 +180,7 @@ export class GroceryComponent implements OnInit {
   mainImageUrl: string = 'https://i.imgur.com/Dhebu4F.jpg';
   productDetails: any;
   totalSum: any;
+  allMainCategories: any;
 
   showBrand:boolean = false;
   allBrands:any;
@@ -190,9 +193,10 @@ export class GroceryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadItemCategories();
+    this.loadItemCategories(this.mainCategoryId);
     this.loadProducts();
     this.loadBrand();
+    this.loadMainCategory();
   }
   
 
@@ -203,8 +207,8 @@ export class GroceryComponent implements OnInit {
     });
   }*/
   
-  loadItemCategories() {
-    this.productlistService.getItemCategoryDetails().subscribe({
+  loadItemCategories(id:number) {
+    this.productlistService.getItemCategoryDetails(id).subscribe({
       next: (res) => {
         this.itemCategories = res.result;
       }
@@ -225,6 +229,16 @@ export class GroceryComponent implements OnInit {
     this.productlistService.getBrands().subscribe({
       next: (res)  => {
         this.allBrands = res.result;
+      },error: (err) => {
+        alert(err.message);
+      }
+    });
+  }
+  loadMainCategory(){
+    this.productlistService.getMainCategory().subscribe({
+      next: (res) => {
+        this.allMainCategories = res.result;
+        console.log(this.allMainCategories)
       },error: (err) => {
         alert(err.message);
       }
@@ -273,6 +287,17 @@ export class GroceryComponent implements OnInit {
       }  
     }
     this.products = this.filteredProducts;
+  }
+  showMainCategoryBased(event: Event){
+    const ElementId = parseInt((event.target as Element).id, 10);
+    this.productlistService.getItemCategoryDetails(ElementId).subscribe({
+      next: (res) => {
+        this.itemCategories = res.result;
+      },error: (err) => {
+        alert(err.message);
+      }
+    });
+    
   }
   showBasedOnPriceLowToHigh(){
     this.filteredProducts = [];

@@ -18,8 +18,8 @@ export class ProductlistService {
     return this.http.get(`${this.baseUrl}${productId}`);
   }
  
-  getItemCategoryDetails(): Observable<any> {
-    return this.http.get(`${this.baseUrl}itemCategoryDetails`);
+  getItemCategoryDetails(id:number): Observable<any> {
+    return this.http.get(`${this.baseUrl}itemCategoryDetails/${id}`);
   }
   getMainCategory():Observable<any>{
     return this.http.get(`${this.baseUrl}maincategory`);
