@@ -147,7 +147,12 @@ export class NavbarComponent implements OnInit {
       const userId = this.auth.getUserDetails().id;
       this.cart.GetCart(userId).subscribe({
         next: (response) => {
-          this.productCount = response.result.cartDetails.length;
+          if(response.isSuccess){
+            this.productCount = response.result.cartDetails.length;
+          }
+          else{
+            alert('cant fetch data');
+          }
         }
       })
     } else {

@@ -29,7 +29,11 @@ export class CartService {
   }
   
   GetCart(userId: string): Observable<any> {
-    return this.http.get<number>(`${this.baseUrl}GetCart/${userId}`);
+    return this.http.get<number>(`${this.baseUrl}GetCart/${userId}`).pipe(
+      tap (() => {
+        this.productAddedToCart.emit();
+      })
+    );
   }
   getWithoutLoginAddToCart(): any {
     const itemDetailsString = localStorage.getItem("itemDetails");

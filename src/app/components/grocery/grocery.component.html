@@ -4,21 +4,24 @@
      
       <ng-container *ngIf="itemCategories">
         <ng-container *ngFor="let mainCategory of itemCategories[0]?.mainCategories">
-          <li [attr.id]="mainCategory.mainCategoryId" class="fw-bold">
+          <li [attr.id]="mainCategory.mainCategoryId" class="fw-bold text-muted">
             <!-- <span (click)="toggleMainCategory(mainCategory)"> -->
             <!-- <i class="bi" [ngClass]="{'bi-plus': !mainCategory.expanded, 'bi-dash': mainCategory.expanded}"></i> -->
             {{ mainCategory.mainCategoryName }}
             <!-- </span> -->
           </li>
-          <hr>
-          <ul>
+         
+          <ul class="border">
             <!-- *ngIf="mainCategory.expanded" -->
 
             <ng-container *ngFor="let category of mainCategory.categories">
-              <li [attr.id]="category.categoryId">
-                <span (click)="toggleCategory(category)">
+              <li [attr.id]="category.categoryId" class="d-flex p-2 justify-content-around">
+                <span (click)="toggleCategory(category)" class="pt-2">
                   <i class="bi" [ngClass]="{'bi-plus': !category.expanded, 'bi-dash': category.expanded}"></i>
                   {{ category.categoryName }}
+                </span>
+                <span>
+                  <img style="width: 50px;height: 50px;" [src]="category.categoryImage" alt="">
                 </span>
               </li>
               <ul *ngIf="category.expanded">
@@ -34,20 +37,32 @@
       </ng-container>
       <div class="filter">
 
-        <div class="fw-bold">FILTERS</div>
+        <div class="fw-bold text-muted" >FILTERS</div>
         <hr>
-        <div class="d-flex justify-content-around" (click)="toggleBrand()">
-          <div class="brand fw-bold" >BRAND</div>
+        <div class="d-flex" (click)="toggleBrand()">
+          <div class="brand fw-bold text-muted" >BRAND</div>
           <span><i class="bi bi-caret-down"></i></span>
         </div>
         
         <div class="first-filter" *ngIf="showBrand">
           <ng-container *ngFor="let item of allBrands">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox"  [attr.id]="item.id" (click)="showBrandBasedProduct($event)">
+              <input class="form-check-input" type="checkbox" [id]="item.id"  [attr.id]="item.id" (click)="showBrandBasedProduct($event)">
               <label class="form-check-label" for="flexCheckChecked">{{item.brandName}}</label>
             </div>
           </ng-container>
+        </div>
+
+        <hr>
+
+        <div class="second-filter">
+          <div class="low-to-high fw-bold text-muted" (click)="showBasedOnPriceLowToHigh()" >Price -- Low to High</div>
+        </div>
+
+        <hr>
+
+        <div class="third-filter">
+          <div class="low-to-high fw-bold text-muted" (click)="showBasedOnPriceHighToLow()" >Price -- High to Low</div>
         </div>
         <hr>
 

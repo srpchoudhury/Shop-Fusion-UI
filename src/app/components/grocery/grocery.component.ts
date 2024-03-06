@@ -204,7 +204,6 @@ export class GroceryComponent implements OnInit {
   loadProducts() {
     this.productlistService.getProducts().subscribe(products => {
       this.products = Object.values(products.result);
-      console.log(this.products)
       this.originalProducts = this.products;
     });
   }
@@ -212,7 +211,6 @@ export class GroceryComponent implements OnInit {
     this.productlistService.getBrands().subscribe({
       next: (res)  => {
         this.allBrands = res.result;
-        console.log(this.allBrands);
       },error: (err) => {
         alert(err.message);
       }
@@ -226,7 +224,6 @@ export class GroceryComponent implements OnInit {
   toggleBrand(){
     this.showBrand = !this.showBrand;
   }
-  
 
   showSubCategoryBasedProduct(event: Event) {
     let elementId: number = parseInt((event.target as Element).id, 10);
@@ -240,9 +237,36 @@ export class GroceryComponent implements OnInit {
     this.products = this.filteredProducts;
   } 
   showBrandBasedProduct(event:Event){
-    let elementId: number = parseInt((event.target as Element).id, 10);
-    this.filteredProducts = this.originalProducts.filter((product:any) => product.brandId === elementId);
+    const ElementId = parseInt((event.target as Element).id, 10);
+    const isChecked = (event.target as HTMLInputElement).checked;
+
+    if (isChecked && this.selectedCheckboxIds.indexOf(ElementId) === -1) {
+      this.selectedCheckboxIds.push(ElementId);
+    } else if (!isChecked && this.selectedCheckboxIds.indexOf(ElementId) !== -1) {
+      this.selectedCheckboxIds = this.selectedCheckboxIds.filter(id => id !== ElementId);
+    }
+    
+    this.filteredProducts = [];
+    if(this.selectedCheckboxIds.length == 0){
+      this.loadProducts();
+    }
+    else{
+      for (let brandId of this.selectedCheckboxIds) {
+        this.filteredProducts = this.filteredProducts.concat(
+          this.originalProducts.filter((product: any) => product.brandId === brandId)
+        );
+      }  
+    }
     this.products = this.filteredProducts;
+  }
+  showBasedOnPriceLowToHigh(){
+    this.filteredProducts = [];
+    this.filteredProducts.push( this.originalProducts.sort((a:any,b:any) => (a.productPrice > b.productPrice ? 1 : -1)));
+  }
+
+  showBasedOnPriceHighToLow(){
+    this.filteredProducts = [];
+    this.filteredProducts.push( this.originalProducts.sort((a:any,b:any) => (a.productPrice < b.productPrice ? 1 : -1)));
   }
 
   AddToCart(productId: number) {
