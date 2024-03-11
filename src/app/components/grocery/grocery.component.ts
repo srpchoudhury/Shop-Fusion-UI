@@ -292,7 +292,12 @@ export class GroceryComponent implements OnInit {
     const ElementId = parseInt((event.target as Element).id, 10);
     this.productlistService.getItemCategoryDetails(ElementId).subscribe({
       next: (res) => {
-        this.itemCategories = res.result;
+        if(res.result.length >0){
+          this.itemCategories = res.result;
+        }
+        else{
+          alert('No items Available');
+        }
       },error: (err) => {
         alert(err.message);
       }
@@ -300,13 +305,13 @@ export class GroceryComponent implements OnInit {
     
   }
   showBasedOnPriceLowToHigh(){
-    this.filteredProducts = [];
-    this.filteredProducts.push( this.originalProducts.sort((a:any,b:any) => (a.productPrice > b.productPrice ? 1 : -1)));
+    this.filteredProducts = [];  
+    this.filteredProducts.push( this.products.sort((a:any,b:any) => (a.productPrice > b.productPrice ? 1 : -1)));
   }
 
   showBasedOnPriceHighToLow(){
     this.filteredProducts = [];
-    this.filteredProducts.push( this.originalProducts.sort((a:any,b:any) => (a.productPrice < b.productPrice ? 1 : -1)));
+    this.filteredProducts.push( this.products.sort((a:any,b:any) => (a.productPrice < b.productPrice ? 1 : -1)));
   }
 
   AddToCart(productId: number) {

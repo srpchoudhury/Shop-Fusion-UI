@@ -6,7 +6,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngFor="let item of allMainCategories">
-        <li class="nav-item"
+        <li class="nav-item fw-bold text-muted p-2 mx-3"
           [id]="item.id" (click)="showMainCategoryBased($event)">{{item.mainCategoryName}}
         </li>
        
@@ -28,11 +28,11 @@
             <!-- </span> -->
           </li>
 
-          <ul class="border">
+          <ul class="border px-0">
             <!-- *ngIf="mainCategory.expanded" -->
 
             <ng-container *ngFor="let category of mainCategory.categories">
-              <li [attr.id]="category.categoryId" class="d-flex p-2 justify-content-around">
+              <li [attr.id]="category.categoryId" class="d-flex p-2 justify-content-around ">
                 <span (click)="toggleCategory(category)" class="pt-2">
                   <i class="bi" [ngClass]="{'bi-plus': !category.expanded, 'bi-dash': category.expanded}"></i>
                   {{ category.categoryName }}
