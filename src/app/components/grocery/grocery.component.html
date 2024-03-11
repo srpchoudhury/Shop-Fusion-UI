@@ -91,52 +91,31 @@
   </div>
 
   <div class="col-md-9">
-
     <section class="section-products">
-      <div class="container">
-
-        <div class="row">
-          <!-- Single Product -->
-          <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let product of products">
-            <div id="product-1" class="single-product">
-              <div class="part-1 text-center" (click)="openProductDetailsModal(product)" data-bs-toggle="modal"
-                data-bs-target="#ModalFormProductDetails">
-                <img [src]="product.productImage" class="img-fluid" style="max-width: 100%;height: 100%;" alt="">
-                <!-- <ul>
-                      <li><a [routerLink]="['/grocery']" (click)="AddToCart(product.productId)"><i class="bi bi-cart-plus-fill"></i></a></li>
-                      <li><a href="#"><i class="bi bi-heart-fill"></i></a></li>
-                      <li><a href="#"><i class="bi bi-plus"></i></a></li>
-                      <li><a href="#"><i class="bi bi-arrows-angle-expand"></i></a></li>
-                </ul> -->
-              </div>
-              <div class="part-2">
-                <h3 class="product-title">
-                  {{ product.productName | slice:0:45 }}{{ product.productName.length > 45 ? '...' : '' }}</h3>
-                <!-- <h4 class="product-old-price">$79.99</h4> -->
-                <div class="d-flex">
-                  <div class="first">
-                    <h4 class="product-price">&#8377;
-                      {{product.productPrice}}</h4>
-                  </div>
-                  <div class="second mx-4">
-                    <button class="btn btn-outline-danger" (click)="AddToCart(product.productId)">Add To Cart</button>
-                  </div>
-
+        <div class="container">
+            <div class="row">
+                <!-- Single Product -->
+                <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let product of products">
+                    <div id="product-{{product.productId}}" class="single-product">
+                        <div class="part-1 text-center" (click)="openProductDetailsModal(product)"
+                            data-bs-toggle="modal" data-bs-target="#ModalFormProductDetails">
+                            <img [src]="product.productImage" class="img-fluid product-image " alt="">
+                        </div>
+                        <div class="part-2">
+                            <h3 class="product-title">{{ product.productName | slice:0:45 }}{{ product.productName.length > 45 ? '...' : '' }}</h3>
+                            <div class="product-details d-flex justify-content-between align-items-center">
+                                <div class="price">&#8377; {{ product.productPrice }}</div>
+                                <button class="btn btn-danger" (click)="AddToCart(product.productId)">Add To Cart</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- <div class=" d-flex">
-                         <button class="btn btn-danger"> Whitlist</button>
-                         <button class="btn btn-success px-3"  [routerLink]="['/grocery']"
-                          (click)="AddToCart(product.productId)">Add To Cart
-                        </button>
-                </div> -->
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </section>
+</div>
 
-  </div>
+
 </div>
 <div class="modal fade" id="ModalFormProductDetails" tabindex="-1" aria-labelledby="ModalFormLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
