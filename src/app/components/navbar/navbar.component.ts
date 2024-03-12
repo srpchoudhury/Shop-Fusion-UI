@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 import { User } from 'src/app/models/UserDetails';
 //import { NgToastService } from 'ng-angular-popup';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
+import { NavbarTitleService } from 'src/app/services/navbar-title.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +15,7 @@ import { CartService } from 'src/app/services/cart.service';
 })
 
 export class NavbarComponent implements OnInit {
-
+  navbarTitle!: string;
   type: string = "password";
   isText: boolean = false;
   eyeIcon: string = "bi-eye-slash-fill";
@@ -28,11 +30,14 @@ export class NavbarComponent implements OnInit {
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private cart: CartService
+    private cart: CartService,
+    private appcomponent: AppComponent,
+    private navbarTitleService: NavbarTitleService
     //  private toast: NgToastService
   ) { }
 
   ngOnInit(): void {
+    this.updateNavbarTitle();
     this.isLoggedIn = this.auth.isLoggedIn();
     this.loadUserDetails();
     this.loginForm = this.fb.group({
@@ -56,6 +61,11 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  updateNavbarTitle(){
+    this.navbarTitleService.currentNavbarTitle.subscribe( title => {
+        this.navbarTitle = title;
+    });
+  }
   //password close 
   hideShowPassword() {
     this.isText = !this.isText;

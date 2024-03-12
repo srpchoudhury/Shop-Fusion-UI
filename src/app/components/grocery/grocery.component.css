@@ -169,14 +169,15 @@ body{background-color: #000}.card{border:none}.product{background-color: #eee}.b
 }
 
 .single-product:hover {
-    transform: translateY(-5px);
+    transform: translateZ(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .product-image {
-    height: 250px; /* Adjust the height according to your preference */
-    width: 100%;
-    object-fit: cover;
+/* Adjust the height according to your preference */
+    width: 70%;
+    height: 100%;
+    /* object-fit: cover; */
     transition: transform 0.3s ease-in-out;
 }
 
@@ -206,4 +207,8 @@ body{background-color: #000}.card{border:none}.product{background-color: #eee}.b
 .btn-danger:hover {
     background-color: #dc3545;
     border-color: #dc3545;
+}
+
+.sidebar-parent{
+    box-shadow: 1px 1px 5px 1px rgb(209, 209, 209);
 }

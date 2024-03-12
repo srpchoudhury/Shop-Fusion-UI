@@ -158,12 +158,14 @@ export class GroceryComponent implements OnInit {
 }
 */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductlistService } from 'src/app/services/productlist.service';
 import { CartDto, productType } from 'src/app/models/UserDetails';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotExpr } from '@angular/compiler';
+import { NavbarTitleService } from 'src/app/services/navbar-title.service';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-grocery',
@@ -188,11 +190,14 @@ export class GroceryComponent implements OnInit {
 
   constructor(private productlistService: ProductlistService,
     private cartService: CartService,
-    private auth: AuthService
-
+    private auth: AuthService,
+    private navbarTitleService: NavbarTitleService,
+    private appComponent: AppComponent
   ) { }
 
   ngOnInit(): void {
+    this.navbarTitleService.setNavbarTitle('SHOP FUSION - GROCERY');
+    this.appComponent.setTitle('Some Other Component');
     this.loadItemCategories(this.mainCategoryId);
     this.loadProducts();
     this.loadBrand();

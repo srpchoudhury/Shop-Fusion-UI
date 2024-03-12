@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg p-2 mt-2 mx-3 my-3 mb-3" style="background-color: #ffffff;">
+<nav class="navbar navbar-expand-lg p-2 mx-3 my-3 mb-3" style="background-color: #ffffff;">
  
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,8 +16,8 @@
 </nav>
 
 <div class="row m-3">
-  <div class="col-md-3" style="background-color: #ffffff;">
-    <div class="sidebar">
+  <div class="col-md-3 sidebar-parent" style="background-color: #ffffff; height: 50%">
+    <div class="sidebar" >
      <ng-container *ngIf="itemCategories">
         <ng-container *ngFor="let mainCategory of itemCategories[mainCategoryId]?.mainCategories">
         
@@ -32,7 +32,7 @@
             <!-- *ngIf="mainCategory.expanded" -->
 
             <ng-container *ngFor="let category of mainCategory.categories">
-              <li [attr.id]="category.categoryId" class="d-flex p-2 justify-content-around ">
+              <li [attr.id]="category.categoryId" class="d-flex p-2 justify-content-around text-muted">
                 <span (click)="toggleCategory(category)" class="pt-2">
                   <i class="bi" [ngClass]="{'bi-plus': !category.expanded, 'bi-dash': category.expanded}"></i>
                   {{ category.categoryName }}
@@ -42,9 +42,9 @@
                 </span>
               </li>
               <ul *ngIf="category.expanded">
-                <li [attr.id]="category.categoryId" (click)="showCategoryBasedProduct($event)">All</li>
+                <li [attr.id]="category.categoryId" class="text-muted" (click)="showCategoryBasedProduct($event)">All</li>
                 <ng-container *ngFor="let subCategory of category.subCategories">
-                  <li [attr.id]="subCategory.subCategoryId" (click)="showSubCategoryBasedProduct($event)">{{
+                  <li [attr.id]="subCategory.subCategoryId" class="text-muted" (click)="showSubCategoryBasedProduct($event)">{{
                     subCategory.subCategoryName }}</li>
                 </ng-container>
               </ul>
@@ -66,7 +66,7 @@
             <div class="form-check">
               <input class="form-check-input" type="checkbox" [id]="item.id" [attr.id]="item.id"
                 (click)="showBrandBasedProduct($event)">
-              <label class="form-check-label" for="flexCheckChecked">{{item.brandName}}</label>
+              <label class="form-check-label" for="flexCheckChecked" class="text-muted">{{item.brandName}}</label>
             </div>
           </ng-container>
         </div>
@@ -82,7 +82,7 @@
         <div class="third-filter">
           <div class="low-to-high fw-bold text-muted" (click)="showBasedOnPriceHighToLow()">Price -- High to Low</div>
         </div>
-        <hr>
+       
 
 
       </div>
@@ -93,10 +93,15 @@
   <div class="col-md-9">
     <section class="section-products">
         <div class="container">
+          <div class="row">
+            <p class="text-muted">Grocery ></p>
+            <p class="text-muted" style="font-size: 13px;">Delve into our comprehensive assortment of thoughtfully curated products, meticulously selected to cater to your discerning tastes and diverse needs. Our expansive collection encompasses a myriad of styles, ranging from timeless classics to contemporary trends, ensuring there's something for everyone. Whether you're seeking sophisticated elegance, practical functionality, or a blend of both, we offer an array of meticulously crafted items designed to elevate your lifestyle. Each product is infused with quality craftsmanship and attention to detail, promising durability and satisfaction. From luxurious indulgences to everyday essentials, our diverse range ensures that you'll find exactly what you're looking for. Experience the joy of discovering exceptional products that enhance your daily routines and enrich your life, making every purchase a meaningful investment in style, comfort, and satisfaction.</p>
+            <hr class="text-muted mb-0">
+          </div>
             <div class="row">
                 <!-- Single Product -->
                 <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let product of products">
-                    <div id="product-{{product.productId}}" class="single-product">
+                    <div id="product-{{product.productId}}" class="single-product pb-2">
                         <div class="part-1 text-center" (click)="openProductDetailsModal(product)"
                             data-bs-toggle="modal" data-bs-target="#ModalFormProductDetails">
                             <img [src]="product.productImage" class="img-fluid product-image " alt="">
