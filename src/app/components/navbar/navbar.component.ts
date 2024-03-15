@@ -160,9 +160,7 @@ export class NavbarComponent implements OnInit {
           if(response.isSuccess){
             this.productCount = response.result.cartDetails.length;
           }
-          else{
-            alert('cant fetch data');
-          }
+         
         }
       })
     } else {
