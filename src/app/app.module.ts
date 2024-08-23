@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 //import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
@@ -23,14 +24,15 @@ import { CartSummaryComponent } from './components/cart-summary/cart-summary.com
     HomeContentComponent,
     GroceryComponent,
     DashboardComponent,
-    CartSummaryComponent
+    CartSummaryComponent,
+    ProductDetailsComponent,
   ],
   imports: [
    // NgToastModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,

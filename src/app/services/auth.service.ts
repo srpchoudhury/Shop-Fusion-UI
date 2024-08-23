@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, EventEmitter  } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartDto } from '../models/UserDetails';
 
@@ -11,36 +11,37 @@ export class AuthService {
   logoutEvent: EventEmitter<void> = new EventEmitter<void>();
   constructor(private http: HttpClient, private router: Router) { }
 
-  onLoginSubmit(loginObj:any){
-    return this.http.post<any>(`${this.baseUrl}login`,loginObj);
+  onLoginSubmit(loginObj: any) {
+    return this.http.post<any>(`${this.baseUrl}login`, loginObj);
   }
-  onSignupSubmit(userObj:any){
-    return this.http.post<any>(`${this.baseUrl}register`,userObj);
+  onSignupSubmit(userObj: any) {
+    return this.http.post<any>(`${this.baseUrl}register`, userObj);
   }
-  AssignRole(userObj:any){
-    return this.http.post<any>(`${this.baseUrl}AssignRole`,userObj);
+  AssignRole(userObj: any) {
+    return this.http.post<any>(`${this.baseUrl}AssignRole`, userObj);
   }
-  signOut(){
+  signOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('userDetails');
     this.logoutEvent.emit();
     this.router.navigate(['home']);
   }
 
-  storeToken(tokenValue:string){
-    localStorage.setItem('token',tokenValue);
+  storeToken(tokenValue: string) {
+    localStorage.setItem('token', tokenValue);
   }
-  getToken(){
+  getToken() {
     return localStorage.getItem('token');
   }
-  storeUserDetails(userDetails:any){
-    localStorage.setItem('userDetails',JSON.stringify(userDetails));
+  //getToken = (): string | null => localStorage.getItem('token') || '';
+  storeUserDetails(userDetails: any) {
+    localStorage.setItem('userDetails', JSON.stringify(userDetails));
   }
-  getUserDetails(){
+  getUserDetails() {
     return JSON.parse(localStorage.getItem("userDetails")!!);
   }
- 
-  isLoggedIn():boolean{
-      return !!localStorage.getItem('token');
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
   }
 }

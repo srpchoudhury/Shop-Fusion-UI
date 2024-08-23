@@ -33,6 +33,7 @@ export class ProductlistService {
   getSubCategories():Observable<any>{
     return this.http.get(`${this.baseUrl}subcategories`);
   }
-  
-  
+  getProductsBasedOnCategories(categoryId:number):Observable<any>{
+    return this.http.get(`${this.baseUrl}productsBasedOnCategories/${categoryId}`);
+  }
 }

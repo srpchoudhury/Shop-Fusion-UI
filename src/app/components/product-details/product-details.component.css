@@ -1,0 +1,38 @@
+
+.dprod-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.dprod-list {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.product-item {
+    width: 500px;
+    padding: 0 5px;
+    text-align: center;
+}
+
+.scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.1);
+    border: none;
+    color: #f1ecec;
+    font-size: 74px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.prev-button {
+    left: 5px;
+    /* top: 15px; */
+}
+
+.next-button {
+    right: 5px;
+    /* top: 35px; */
+}

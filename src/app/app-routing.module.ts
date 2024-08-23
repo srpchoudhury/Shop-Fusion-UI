@@ -8,6 +8,7 @@ import { GroceryComponent } from './components/grocery/grocery.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 
 
@@ -19,14 +20,8 @@ const routes: Routes = [
   { path: 'homecontent', component: HomeContentComponent},
   { path: 'grocery', component: GroceryComponent},
   { path: 'cartsummary', component: CartSummaryComponent},
+  { path: 'productdetails/:categoryId/:productId', component: ProductDetailsComponent},
   { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]}
-
-
-
-
-
-
-
 ];
 
 @NgModule({

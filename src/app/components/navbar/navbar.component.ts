@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private cart: CartService,
     private appcomponent: AppComponent,
-    private navbarTitleService: NavbarTitleService
+    private navbarTitleService: NavbarTitleService,
     //  private toast: NgToastService
   ) { }
 
@@ -84,14 +84,16 @@ export class NavbarComponent implements OnInit {
           this.auth.storeUserDetails(res.result.user);
           window.location.reload();
           this.isLoggedIn = true;
-
+  
           //   document.getElementById('ModalFormLogin')?.classList.remove('show');
           this.router.navigate(['home']);
           //this.toast.success({detail:"SUCCESS", summary:res.message, duration: 5000});
           alert(res.message);
+        
         }, error: (err) => {
           //this.toast.error({detail:"ERROR", summary:"Something went wrong!", duration: 5000});
           alert("Something went wrong!");
+          
         }
       })
     } else {
@@ -159,9 +161,6 @@ export class NavbarComponent implements OnInit {
         next: (response) => {
           if(response.isSuccess){
             this.productCount = response.result.cartDetails.length;
-          }
-          else{
-            alert('cant fetch data');
           }
         }
       })

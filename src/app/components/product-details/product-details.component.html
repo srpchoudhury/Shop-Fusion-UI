@@ -1,0 +1,79 @@
+<div style="background-color: #fff;" class="m-3">
+    <div *ngFor="let product of productDetails">
+        <div class="row p-3">
+            <div class="col-md-4">
+                <!-- <div class="card"> -->
+                <!-- <div class="card-body"> -->
+                <div class="row">
+                    <!-- Additional product images -->
+                    <div class="col-md-4 col-4">
+                        <div class="row">
+                            <div class="col-md-12 col-12 mb-3 product-thumbnails">
+                                <img [src]="product.productImage" style="height: 100px;"
+                                    class="img-fluid product-thumbnail" alt="Thumbnail 1">
+                            </div>
+                            <div class="col-md-12 col-12 mb-3 product-thumbnails">
+                                <img [src]="product.productImage" style="height: 100px;"
+                                    class="img-fluid product-thumbnail" alt="Thumbnail 2">
+                            </div>
+                            <div class="col-md-12 col-12 mb-3 product-thumbnails">
+                                <img [src]="product.productImage" style="height: 100px;"
+                                    class="img-fluid product-thumbnail" alt="Thumbnail 3">
+                            </div>
+                            <div class="col-md-12 col-12 product-thumbnails">
+                                <img [src]="product.productImage" style="height: 100px;"
+                                    class="img-fluid product-thumbnail" alt="Thumbnail 4">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Main product image -->
+                    <div class="col-md-8 col-8 p-3">
+                        <img [src]="product.productImage" class="img-fluid product-image" style="height: 400px;"
+                            alt="Product Image">
+                    </div>
+                </div>
+                <!-- </div> -->
+                <!-- </div> -->
+            </div>
+            <div class="col-md-8">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item">{{ product.mainCategoryName }}</li>
+                        <li class="breadcrumb-item">{{ product.categoryName }}</li>
+                        <li class="breadcrumb-item">{{ product.subCategoryName }}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ product.brandName }}</li>
+                    </ol>
+                </nav>
+                <h5 class="fw-bold"> {{ product.productName }}</h5>
+                <h6>&#8377; {{ product.productPrice }}</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div style="background-color: rgb(233, 227, 218);">
+    <div class="dprod p-2 m-3 d-flex">
+        <ng-container *ngFor="let items of suggestedProductDetails">
+            <div class="dprod" style="width: 100px;">
+                <img [src]="items.productImage" class="img-fluid">
+                <h6>{{items.productName}}</h6>
+            </div>
+        </ng-container>
+    </div>
+</div> -->
+
+<div style="background-color: rgb(233, 227, 218);">
+    <div class="dprod-container">
+        <div class="dprod-list" #suggestedProductList>
+            <ng-container *ngFor="let item of suggestedProductDetails">
+                <div class="product-item"  style="width: 500px;">
+                    <img [src]="item.productImage" class="img-fluid">
+                    <h6>{{item.productName}}</h6>
+                </div>
+            </ng-container>
+        </div>
+        <button class="scroll-button prev-button" (click)="scrollLeft()">‹</button>
+        <button class="scroll-button next-button" (click)="scrollRight()">›</button>
+    </div>
+</div>
